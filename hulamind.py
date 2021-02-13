@@ -50,6 +50,7 @@ def train_mosse():
     json_list = glob.glob(hula_path + "meta/*json")
     json_list = [os.path.basename(x) for x in json_list]
     json_list.sort()
+    print("using metadata: %s" % (json_list[-1:][0]))
     load = HulaDataset(os.path.basename(hula_path + json_list[-1:][0]), hula_path, categories)
 
     trainer = torch.utils.data.DataLoader(load, batch_size=12, shuffle=True)

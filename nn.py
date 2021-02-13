@@ -20,12 +20,12 @@ class HulaNet(torch.nn.Module):
     #   self.conv1.weight = torch.nn.init.xavier_normal_(torch.ones(5, 5))
 
     def forward(self, x):
-        x = torch.nn.functional.relu(self.conv1(x))
-        x = torch.nn.functional.relu(self.conv2(x))
+        x = torch.nn.functional.celu(self.conv1(x))
+        x = torch.nn.functional.celu(self.conv2(x))
         x = self.pool2(x)
         x = x.view((-1, 16 * (((1080 // 120 * 10) - 4 - 2) // 2) * (((1920 // 120 * 10) - 4 - 2) // 2)))
         x = self.full1(x)
-        x = torch.nn.functional.relu(x)
+        x = torch.nn.functional.celu(x)
         x = self.full2(x)
-        x = torch.nn.functional.relu(x)
+        x = torch.nn.functional.softmax(x,dim=1)
         return x
